@@ -84,21 +84,5 @@ public class Pet {
 	public String toString() {
 		return "Pet [petID=" + petID + ", name=" + name + ", breed=" + breed + ", age=" + age + ", ownerID=" + ownerID
 				+ "]";
-	}
-	
-	
+	}	
 }
-
-
-/*
-
-CREATE TABLE Pets (
-    petID INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    breed VARCHAR(100),
-    age INT,
-    ownerID INT,
-    FOREIGN KEY (ownerID) REFERENCES Owners(ownerID)
-);
-
-*/

@@ -1,11 +1,17 @@
 package com.petclinicpro.BackEnd.jpa;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "Visit")
@@ -19,8 +25,10 @@ public class Visit {
 	@Column(name = "petID")
 	private Integer petID;
 	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+    @Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dateOfVisit")
-	private String dateOfVisit;
+	private Date dateOfVisit;
 	
 	@Column(name = "reasonOfVisit")
 	private String reasonOfVisit;
@@ -31,7 +39,7 @@ public class Visit {
 	public Visit() {
 	}
 
-	public Visit(Integer visitID, Integer petID, String dateOfVisit, String reasonOfVisit, String treatmentNotes) {
+	public Visit(Integer visitID, Integer petID, Date dateOfVisit, String reasonOfVisit, String treatmentNotes) {
 		super();
 		this.visitID = visitID;
 		this.petID = petID;
@@ -56,11 +64,11 @@ public class Visit {
 		this.petID = petID;
 	}
 
-	public String getDateOfVisit() {
+	public Date getDateOfVisit() {
 		return dateOfVisit;
 	}
 
-	public void setDateOfVisit(String dateOfVisit) {
+	public void setDateOfVisit(Date dateOfVisit) {
 		this.dateOfVisit = dateOfVisit;
 	}
 
@@ -85,19 +93,4 @@ public class Visit {
 		return "Visit [visitID=" + visitID + ", petID=" + petID + ", dateOfVisit=" + dateOfVisit + ", reasonOfVisit="
 				+ reasonOfVisit + ", treatmentNotes=" + treatmentNotes + "]";
 	}
-	
 }
-
-/*
-
-CREATE TABLE Visits (
-    visitID INT AUTO_INCREMENT PRIMARY KEY,
-    petID INT,
-    dateOfVisit DATE NOT NULL,
-    reasonOfVisit TEXT,
-    treatmentNotes TEXT,
-    FOREIGN KEY (petID) REFERENCES Pets(petID)
-);
-
-
-*/

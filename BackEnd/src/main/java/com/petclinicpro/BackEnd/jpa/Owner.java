@@ -72,16 +72,4 @@ public class Owner {
 	public String toString() {
 		return "Owner [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone + "]";
 	}
-	
 }
-
-/*
-
-CREATE TABLE Owners (
-    ownerID INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100),
-    phone VARCHAR(20)
-);
-
-*/
