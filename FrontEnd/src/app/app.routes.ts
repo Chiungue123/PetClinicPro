@@ -1,3 +1,20 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { PetsComponent } from './pets/pets.component';
+import { OwnersComponent } from './owners/owners.component';
+import { VisitsComponent } from './visits/visits.component';
+import { OwnersCreateComponent } from './owners-create/owners-create.component';
+
+export const routes: Routes = [
+    { path: 'login', component: LoginComponent },
+    { path: 'home', component: HomeComponent },
+    { path: 'pets', component: PetsComponent },
+    { path: 'owners', component: OwnersComponent },
+    { path: 'visits', component: VisitsComponent },
+    { path: 'owners/create', component: OwnersCreateComponent},
+
+    // Default path
+    { path: '', redirectTo: '/home', pathMatch: 'full' }
+];

@@ -1,0 +1,52 @@
+html {
+    position: fixed;
+    left: 0;
+    top: 1;
+    width: 100vw;
+    height: 8vh;
+}
+
+body {
+    width: 80%;
+    margin: auto;
+}
+
+nav {
+    margin: 0;
+    padding: 0;          /* Padding around the nav bar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    display: flex;             /* Display flex for the nav bar */
+    justify-content: space-around; /* Align content of nav bar */
+    align-items: center;      /* Align content of nav bar */
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff;
+}
+
+.nav-links {
+    width: 60%; 
+    display:flex;
+    justify-content: space-around;
+}
+
+.title {
+    margin: 0% 3%;
+    font-family: 'Baskerville';
+    font-size: 25px;
+}
+
+.nav-links a{        
+    align-items: center;      /* Align content of the nav bar vertically */
+    justify-content: center;  /* Align content of the nav bar horizontally */
+    color: black;          /* Bootstrap primary color for links */
+    text-decoration: none;   /* Remove underline from links */
+    margin: 0vh 2vw;
+    padding: 5px;      /* Padding around each link */
+    display: inline-block;   /* Align links in a line */
+    border-color: transparent; /* Remove border around links */
+    background-color: transparent; /* Remove background color from links */
+    font-size: 1.25rem;
+}

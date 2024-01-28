@@ -1,0 +1,25 @@
+html {
+    position: fixed;
+    left: 0;
+    top: 13vh;
+    width: 100vw;
+    height: 90vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    width: 80%;
+    min-height: 30%;
+    margin: auto;
+    border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff;
+}
+
+.content {
+    height: 95%;
+    width: 95%;
+    padding: 2% 5%;
+}

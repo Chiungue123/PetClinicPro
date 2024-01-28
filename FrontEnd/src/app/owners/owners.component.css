@@ -1,0 +1,91 @@
+html {
+    position: fixed;
+    left: 0;
+    top: 13vh;
+    width: 100vw;
+    height: 90vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    width: 80%;
+    min-height: 30%;
+    margin: auto;
+    padding: 3% 0%;
+    border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    display: vertical;
+}
+
+.content {
+    height: 95%;
+    width: 95%;
+    padding: 2% 5%;
+}
+
+table {
+    width: 95%;
+    height: 100%;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+button {
+    max-width: 100%;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin: 0% 5%;  
+  }
+  
+  .header h1 {
+    margin: 0;
+    font-family: 'Georgia';
+  }
+  
+  .add {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    width: 10%;
+    background-color: #4CAF50;
+  }
+  
+  .update {
+    background-color: #4f6bb4;
+    transition: transform 0.3s ease;
+  }
+
+  .delete {
+    background-color: #da190b;
+    transition: transform 0.3s ease;
+  }
+
+  .add:hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+  }
+  
+.update:hover{
+    cursor: pointer;
+    transform: translateY(-3px);
+}
+
+.delete:hover{
+    cursor: pointer;
+    transform: translateY(-3px);
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Owners</title>
+        <link rel="stylesheet" href="owners.component.css" />
+    </head>
+    <body>
+        <div class = "header">
+            <h1>Owner Cataloug</h1>
+            <button class="add" type="button" (click)="onAdd()">Add</button>
+        </div>
+        <div class="content">    
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th [ngStyle]="{'max-width.px': 125}"> # </th>
+                    <th [ngStyle]="{'max-width.px': 125}"> # </th>
+                </tr>
+                <tr *ngFor="let owner of owners">
+                    <td> {{owner.ownerID}} </td>
+                    <td> {{owner.name}} </td>
+                    <td> {{owner.email}} </td>
+                    <td> {{owner.pets}} </td>
+                    <td [ngStyle]="{'max-width.px': 125}"><button class="delete" type="button" (click)="onDelete(owner.ownerID)" >Delete</button></td>
+                    <td [ngStyle]="{'max-width.px': 125}"><button class="update" type="button" (click)="onUpdate(owner.ownerID)">Update</button></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

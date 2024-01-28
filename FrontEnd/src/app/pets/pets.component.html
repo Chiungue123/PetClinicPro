@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>PetPro</title>
+        <link rel="stylesheet" href="pets.component.css" />
+    </head>
+    <body>
+        <div class = "header">
+            <h1>Pets Cataloug</h1>
+            <button class="add" type="button" (click)="onAdd()">Add</button>
+        </div>
+        <div class="content">
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Breed</th>
+                    <th>Age</th>
+                    <th>OwnerID</th>
+                    <th [ngStyle]="{'max-width.px': 125}">#</th>
+                    <th [ngStyle]="{'max-width.px': 125}">#</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Max</td>
+                    <td>Labrador</td>
+                    <td>5</td>
+                    <td>1</td>
+                    <td [ngStyle]="{'max-width.px': 125}"><button class="update" type="button" (click)="onUpdate(pet.petID)">Update</button></td>
+                    <td [ngStyle]="{'max-width.px': 125}"><button class="delete" type="button" (click)="onDelete(pet.petID)">Delete</button></td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
