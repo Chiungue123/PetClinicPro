@@ -1,10 +1,14 @@
 package com.petclinicpro.BackEnd.jpa;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,22 +20,29 @@ public class Owner {
 	@Column(name = "ownerID")
 	private Integer id;
 	
-	@Column(name = "name")
-	private String name;
+	@Column(name = "firstName")
+	private String firstName;
 	
+	@Column(name = "lastName")
+	private String lastName;
+
 	@Column(name = "email")
 	private String email;
 	
 	@Column(name = "phone")
 	private String phone;
 	
+	//@OneToMany(mappedBy = "owner")
+    //private Set<Pet> pets = new HashSet<>();
+	
 	public Owner() {
 	}
 	
-	public Owner(Integer id, String name, String email, String phone) {
+	public Owner(Integer id, String firstName, String lastName, String email, String phone) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
 		this.phone = phone;
 	}
@@ -44,12 +55,20 @@ public class Owner {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getEmail() {
@@ -70,6 +89,6 @@ public class Owner {
 
 	@Override
 	public String toString() {
-		return "Owner [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone + "]";
+		return "Owner [id=" + id + ", name=" + firstName + lastName + ", email=" + email + ", phone=" + phone + "]";
 	}
 }

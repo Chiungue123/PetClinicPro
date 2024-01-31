@@ -2,6 +2,18 @@
 server:
   port: 9050
 
+#Logging Settings
+#logging:
+#  level:
+#    [org.hibernate.SQL: DEBUG]
+#    [org.hibernate.type: TRACE]
+    
+logging:
+  level:
+    hibernate:
+      SQL: DEBUG
+      type: TRACE
+
 # Database Settings
 spring:
   datasource:
@@ -9,9 +21,13 @@ spring:
     username: root
     password: root1
   jpa:
-    #hibernate:
-      #ddl-auto: update
+    hibernate:
+      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+        format-sql: true
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        

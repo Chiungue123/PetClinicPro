@@ -2,7 +2,7 @@ package com.petclinicpro.BackEnd.jpa;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
+//import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +14,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name = "Visit")
+@Table(name = "Visits")
 public class Visit {
 
 	@Id
@@ -25,9 +25,9 @@ public class Visit {
 	@Column(name = "petID")
 	private Integer petID;
 	
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-    @Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "dateOfVisit")
+	//@DateTimeFormat(pattern="yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    @Column(name = "dateOfVisit")
 	private Date dateOfVisit;
 	
 	@Column(name = "reasonOfVisit")
