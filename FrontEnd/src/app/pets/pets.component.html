@@ -21,12 +21,12 @@
                     <th [ngStyle]="{'max-width.px': 125}">#</th>
                     <th [ngStyle]="{'max-width.px': 125}">#</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Max</td>
-                    <td>Labrador</td>
-                    <td>5</td>
-                    <td>1</td>
+                <tr *ngFor="let pet of pets">
+                    <td> {{pet.petID}} </td>
+                    <td> {{pet.name}} </td>
+                    <td> {{pet.breed}} </td>
+                    <td> {{pet.age}} </td>
+                    <td> {{pet.ownerID}} </td>
                     <td [ngStyle]="{'max-width.px': 125}"><button class="update" type="button" (click)="onUpdate(pet.petID)">Update</button></td>
                     <td [ngStyle]="{'max-width.px': 125}"><button class="delete" type="button" (click)="onDelete(pet.petID)">Delete</button></td>
                 </tr>

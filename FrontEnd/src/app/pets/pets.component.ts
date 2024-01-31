@@ -1,39 +1,58 @@
 import { Component } from '@angular/core';
-
 import { Pet } from '../models/pet';
 import { CommonModule } from '@angular/common';
+import { PetService } from '../services/pet.service';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pets',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   templateUrl: './pets.component.html',
   styleUrl: './pets.component.css'
 })
 export class PetsComponent {
 
-  pet: Pet = new Pet(1, "Name", "Breed", 7, 1)
+  pets: Pet[] = [];
 
-  constructor() { }
+  constructor(/*private petService: PetService*/ private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
+    this.getPets().subscribe(
+      (pets: Pet[]) => {
+        console.log("Pets: " + pets);
+        this.pets = pets;
+      });
   }
 
-  getPets(): void {
-    console.log("Get Pets");
+  getPets(): Observable<Pet[]>{
+    console.log("Getting Pets");
+    return this.http.get<Pet[]>("http://localhost:9050/pets");
   }
 
-  onUpdate(id: number): void {
-    console.log("Update Pet: " + id);
-  }
+  /*getPets() {
+    console.log("Getting Pets");
+    return this.petService.getPets();
+  }*/
 
   onDelete(id: number): void {
     console.log("Delete Pet: " + id);
   }
 
   onAdd(): void {
-    console.log("Add Visit");
+    console.log("Add Pet");
+    this.router.navigate(['/form'], { state: { data: "pets", action: 'Add' } });
+    //this.router.navigate(['/owners/add']);
+  }
+
+  onUpdate(id: number): void {
+    console.log("Update Pet: " + id);
+    this.router.navigate(['/form'], { state: { data: "pets", action: 'Update/' + id } });
   }
 }

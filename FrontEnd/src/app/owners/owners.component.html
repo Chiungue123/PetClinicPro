@@ -20,12 +20,12 @@
                     <th [ngStyle]="{'max-width.px': 125}"> # </th>
                     <th [ngStyle]="{'max-width.px': 125}"> # </th>
                 </tr>
-                <tr *ngFor="let owner of owners">
-                    <td> {{owner.ownerID}} </td>
-                    <td> {{owner.name}} </td>
+                <tr *ngFor="let owner of owners; let i = index">
+                    <td> {{i + 1}} </td>
+                    <td> {{owner.firstName}} {{owner.lastName}} </td>
                     <td> {{owner.email}} </td>
-                    <td> {{owner.pets}} </td>
-                    <td [ngStyle]="{'max-width.px': 125}"><button class="delete" type="button" (click)="onDelete(owner.ownerID)" >Delete</button></td>
+                    <td> {{owner.phone}} </td>
+                    <td [ngStyle]="{'max-width.px': 125}"><button class="delete" type="button" (click)="onDelete(owner.ownerID)">Delete</button></td>
                     <td [ngStyle]="{'max-width.px': 125}"><button class="update" type="button" (click)="onUpdate(owner.ownerID)">Update</button></td>
                 </tr>
             </table>

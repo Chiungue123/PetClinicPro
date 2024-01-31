@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Owners Create</title>
+    </head>
+    <body>
+        <div class = "header">
+            <h1>{{ action }} {{ dataType }}</h1>
+        </div>
+        <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+            <div class="field" *ngFor="let controlName of formControls; let i = index;">
+                <br><br>
+                <label for="{{controlName}}"> {{ label[i] }} </label>
+                <input [type]="inputTypes[controlName]" [id]="controlName" [formControlName]="controlName" />
+            </div>
+            <br><br><br>
+            <div class="buttons">
+                <button class="add" type="submit"> {{ action === 'Add' ? 'Add' : 'Update' }} </button>
+                <button class="cancel" type="button" (click)="onCancel()">Cancel</button>
+            </div>
+        </form>
+    </body>
+</html>

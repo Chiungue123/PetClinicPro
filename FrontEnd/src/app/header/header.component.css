@@ -27,7 +27,7 @@ nav {
 }
 
 .nav-links {
-    width: 60%; 
+    width: 40%; 
     display:flex;
     justify-content: space-around;
 }
@@ -43,7 +43,7 @@ nav {
     justify-content: center;  /* Align content of the nav bar horizontally */
     color: black;          /* Bootstrap primary color for links */
     text-decoration: none;   /* Remove underline from links */
-    margin: 0vh 2vw;
+    margin: 0;               /* Remove margin around each link */
     padding: 5px;      /* Padding around each link */
     display: inline-block;   /* Align links in a line */
     border-color: transparent; /* Remove border around links */

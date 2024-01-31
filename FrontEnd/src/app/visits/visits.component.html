@@ -21,12 +21,12 @@
                     <th [ngStyle]="{'max-width.px': 125}">#</th>
                     <th [ngStyle]="{'max-width.px': 125}">#</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>2020-01-01</td>
-                    <td>Checkup</td>
-                    <td>None</td>
+                <tr *ngFor="let visit of visits">
+                    <td> {{visit.visitID}} </td>
+                    <td> {{visit.petID}} </td>
+                    <td> {{visit.dateOfVisit}} </td>
+                    <td> {{visit.reasonOfVisit}} </td>
+                    <td> {{visit.treatmentNotes}} </td>
                     <td [ngStyle]="{'max-width.px': 125}"><button class="update" type="button" (click)="onUpdate(visit.visitID)">Update</button></td>
                     <td [ngStyle]="{'max-width.px': 125}"><button class="delete" type="button" (click)="onDelete(visit.visitID)">Delete</button></td>
                 </tr>

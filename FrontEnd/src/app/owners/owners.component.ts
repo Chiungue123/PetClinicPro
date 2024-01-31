@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 
 import { Owner } from '../models/owner';
 import { CommonModule } from '@angular/common';
-//import { OwnerService } from '../services/owner.service';
-import { Observable } from 'rxjs';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { OwnerService } from '../services/owner.service';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-owners',
@@ -18,12 +19,17 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 })
 export class OwnersComponent {
 
+  owner!: Owner;
   owners: Owner[] = [];
 
-  constructor(/*private ownerService: OwnerService, */private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router, /*private ownerService: OwnerService*/) { }
 
   ngOnInit(): void {
-    this.getOwners().subscribe((owners: Owner[]) => this.owners = owners);
+    this.getOwners().subscribe(
+      (owners: Owner[]) => {
+        console.log("Owners: ", owners);
+        this.owners = owners;
+      });
   }
 
   getOwners(): Observable<Owner[]> {
@@ -31,20 +37,19 @@ export class OwnersComponent {
     return this.http.get<Owner[]>("http://localhost:9050/owners");
   }
 
-  /*
-  getOwners() {
+  /*getOwners() {
     return this.ownerService.getOwners();
+  }*/
+  
+  onAdd(): void {
+    this.router.navigate(['/form'], { state: { data: "owners", action: 'Add' } });
   }
-  */
+
   onUpdate(id: number): void {
-    console.log("Update Owner: " + id);
+    this.router.navigate(['/form'], { state: { data: "owners", action: 'Update/' + id } });
   }
 
   onDelete(id: number): void {
     console.log("Delete Owner: " + id);
-  }
-
-  onAdd(): void {
-    console.log("Add Visit");
   }
 }

@@ -1,0 +1,100 @@
+html {
+    position: fixed;
+    left: 0;
+    top: 13vh;
+    width: 100vw;
+    height: 90vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    width: 80%;
+    min-height: 30%;
+    margin: auto;
+    padding: 3% 0%;
+    border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    display: vertical;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin: 0% 5%;  
+}
+
+.header h1 {
+    margin: 0;
+    font-family: 'Georgia';
+}
+
+form {
+    width: 80%;
+    height: 80%;
+    margin: auto;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.field input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add:hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+}
+
+.buttons {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    max-width: 100%;
+    min-width: 100px;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    width: 10%;
+    background-color: #4CAF50;
+}
+
+.add:hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+}
+
+.cancel {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    width: 10%;
+    background-color: #f44336;
+}
+
+.cancel:hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+}

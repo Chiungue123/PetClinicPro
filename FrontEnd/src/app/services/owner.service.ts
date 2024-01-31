@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Owner } from '../models/owner';
 import { HttpClient } from '@angular/common/http'
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,6 @@ export class OwnerService {
 
   getOwners(): Observable<Owner[]> {
     console.log("From Owner Service: Getting Owners");
-    return this.http.get<Owner[]>("http://localhost:8080/owners");
+    return this.http.get<Owner[]>("http://localhost:9050/owners");
   }
 }
