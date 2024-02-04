@@ -8,7 +8,10 @@ export class InputTypes {
     visitTypes: { [key: string]: string } = {
         dateOfVisit: 'date',
         reasonOfVisit: 'text',
-        treatmentNotes: 'text'
+        treatmentNotes: 'text',
+        visitID: 'number',
+        petID: 'number'
+
     };
     petTypes: { [key: string]: string } = {
         name: 'text',

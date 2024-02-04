@@ -1,11 +1,11 @@
 export class Pet {
-    petID: number;
-    name: string;
+    petID: Number;
+    name: String;
     breed: string;
     age: number;
-    ownerID: number; // Reference to the Owner
+    ownerID: Number; // Reference to the Owner
 
-    constructor(petID: number, name: string, breed: string, age: number, ownerID: number) {
+    constructor(petID: Number, name: string, breed: string, age: number, ownerID: Number) {
         this.petID = petID;
         this.name = name;
         this.breed = breed;

@@ -7,7 +7,7 @@
     </head>
     <body>
         <div class = "header">
-            <h1>Owner Cataloug</h1>
+            <h1>Owner Catalog</h1>
             <button class="add" type="button" (click)="onAdd()">Add</button>
         </div>
         <div class="content">    
@@ -25,8 +25,8 @@
                     <td> {{owner.firstName}} {{owner.lastName}} </td>
                     <td> {{owner.email}} </td>
                     <td> {{owner.phone}} </td>
-                    <td [ngStyle]="{'max-width.px': 125}"><button class="delete" type="button" (click)="onDelete(owner.ownerID)">Delete</button></td>
                     <td [ngStyle]="{'max-width.px': 125}"><button class="update" type="button" (click)="onUpdate(owner.ownerID)">Update</button></td>
+                    <td [ngStyle]="{'max-width.px': 125}"><button class="delete" type="button" (click)="onDelete(owner.ownerID)">Delete</button></td>
                 </tr>
             </table>
         </div>

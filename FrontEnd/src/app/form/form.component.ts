@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { Observable, Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { SharedModule } from '../shared/shared.module';
+import { FormService } from '../services/form.service';
 
 @Component({
   selector: 'app-form',
@@ -40,14 +41,15 @@ export class FormComponent {
 
   formControls: string[] = [];
 
+  formTitle!: string;
   action!: string;
   dataType!: string;
-  
 
-  constructor(private router: Router, 
+  constructor(private router: Router,
+              private formService: FormService, 
               private fb: FormBuilder, 
               private http: HttpClient,
-              private toastr: ToastrService
+              private toastr: ToastrService,
             ){
 
     const navigation = this.router.getCurrentNavigation();
@@ -65,11 +67,11 @@ export class FormComponent {
         this.inputTypes = new InputTypes().ownerTypes;
 
       } else if (this.dataType === "visits") {
-        this.label = ["Date of Visit", "Reason of Visit", "Treatment Notes"];
+        this.label = ["Date of Visit", "Reason of Visit", "Treatment Notes", "VisitID", "PetID"];
         this.inputTypes = new InputTypes().visitTypes;
 
       } else if (this.dataType === "pets") {
-        this.label = ["Name", "Breed", "Age"];
+        this.label = ["Name", "Breed", "Age", "Owner ID"];
         this.inputTypes = new InputTypes().petTypes;
       }
     }
@@ -77,6 +79,7 @@ export class FormComponent {
 
   ngOnInit(): FormGroup { 
     if (this.action.includes("Update")) {
+
       let id = parseInt(this.action.split("/")[1]);
       this.dynamicForm = this.updateForm(this.dataType, id);
 
@@ -86,11 +89,15 @@ export class FormComponent {
     for (let value in this.dynamicForm.controls) {
       this.formControls.push(value.valueOf());
     }
+
+    //console.log("Dynamic Form Controls: ", this.dynamicForm.controls)
+    console.log("Form Controls: ", this.formControls);
     return this.dynamicForm;
   }
 
   createForm(dataType: string): any {
     if (dataType === "owners") {
+      this.formTitle = "Add Owner"
       return this.dynamicForm = this.fb.group({
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
@@ -99,82 +106,121 @@ export class FormComponent {
       });
 
     } else if (dataType === "visits") {
+      this.formTitle = "Add Visit"
       return this.dynamicForm = this.fb.group({
         //visitID: ['', Validators.required],
-        //petID: ['', Validators.required],
+        petID: ['', Validators.required],
         dateOfVisit: ['', Validators.required],
         reasonOfVisit: ['', Validators.required],
         treatmentNotes: ['', Validators.required]
       });
 
     } else if (dataType === "pets") {
+      this.formTitle = "Add Pet"
       return this.dynamicForm = this.fb.group({
         //petID: ['', Validators.required],
         name: ['', Validators.required],
         breed: ['', Validators.required],
         age: ['', Validators.required],
-        //ownerID: ['', Validators.required]
+        ownerID: ['', Validators.required]
       });
     } else {  
       console.log("Invalid Data Type");
     }
   }
 
-  updateForm(dataType: string, id: number): any {
-    if (dataType === 'owners'){
+  updateForm(dataType: string, id: Number): FormGroup {
+
+    console.log("Update Form Datatype: " + dataType + " ID: " + id)
+
+    if (dataType === 'owners') {
+
+      this.formTitle = "Update Owner"
+      this.dynamicForm = this.fb.group({
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: ['', Validators.required],
+        phone: ['', Validators.required]
+      });
+      
       this.getOwner(id).subscribe(
         (owner: Owner) => {
-          this.owner = owner;
-          return this.dynamicForm = this.fb.group({
-            firstName: [this.owner.firstName, Validators.required],
-            lastName: [this.owner.lastName, Validators.required],
-            email: [this.owner.email, Validators.required],
-            phone: [this.owner.phone, Validators.required]
+          console.log("Owner: ", owner)
+
+          this.dynamicForm.patchValue({
+            firstName: owner.firstName,
+            lastName: owner.lastName,
+            email: owner.email,
+            phone: owner.phone
           });
         },(error: any) => {
           console.error("Error: ", error);
         });
 
     } else if (dataType === 'visits') {
+
+      this.formTitle = "Update Visit"
+      this.dynamicForm = this.fb.group({
+        //visitID: ['', Validators.required],
+        petID: ['', Validators.required],
+        dateOfVisit: ['', Validators.required],
+        reasonOfVisit: ['', Validators.required],
+        treatmentNotes: ['', Validators.required]
+      });
+
       this.getVisit(id).subscribe(
         (visit: Visit) => {
+          console.log("Visit: ", visit)
           this.visit = visit;
-          return this.dynamicForm = this.fb.group({
-            //visitID: [this.visit.visitID, Validators.required],
-            //petID: [this.visit.petID, Validators.required],
-            dateOfVisit: [this.visit.dateOfVisit, Validators.required],
-            reasonOfVisit: [this.visit.reasonOfVisit, Validators.required],
-            treatmentNotes: [this.visit.treatmentNotes, Validators.required]
+          this.dynamicForm.patchValue({
+            //visitID: this.visit.visitID,
+            petID: this.visit.petID,
+            dateOfVisit: visit.dateOfVisit,
+            reasonOfVisit: visit.reasonOfVisit,
+            treatmentNotes: visit.treatmentNotes
           });
         },(error: any) => {
           console.error("Error: ", error);
         });
 
     } else if (dataType === 'pets') {
+
+      this.formTitle = "Update Pet"
+      this.dynamicForm = this.fb.group({
+        //petID: ['', Validators.required],
+        name: ['', Validators.required],
+        breed: ['', Validators.required],
+        age: ['', Validators.required],
+        ownerID: ['', Validators.required]
+      });
+
       this.getPet(id).subscribe(
         (pet: Pet) => {
-          this.pet = pet;
-          return this.dynamicForm = this.fb.group({
-            //petID: [this.pet.petID, Validators.required],
-            name: [this.pet.name, Validators.required],
-            breed: [this.pet.breed, Validators.required],
-            age: [this.pet.age, Validators.required],
-            //ownerID: [this.pet.ownerID, Validators.required]
+          console.log("Pet: ", pet);
+          this.dynamicForm.patchValue({
+            //petID: pet.petID,
+            name: pet.name,
+            breed: pet.breed,
+            age: pet.age,
+            ownerID: this.pet.ownerID
           });
         },(error: any) => {
           console.error("Error: ", error);
         });
       } 
+
+      return this.dynamicForm;
   }
-  getPet(id: number): Observable<Pet> {
+
+  getPet(id: Number): Observable<Pet> {
     return this.http.get<Pet>("http://localhost:9050/pets/" + id);
   }
   
-  getVisit(id: number): Observable<Visit> {
+  getVisit(id: Number): Observable<Visit> {
     return this.http.get<Visit>("http://localhost:9050/visits/" + id);
   }
 
-  getOwner(id: number): Observable<Owner> {
+  getOwner(id: Number): Observable<Owner> {
     return this.http.get<Owner>("http://localhost:9050/owners/" + id);
   }
 
@@ -229,7 +275,7 @@ export class FormComponent {
     );
   }
 
-  update(dataType: string, id: number) {
+  update(dataType: string, id: Number) {
     // Determine the correct endpoint based on the dataType
     let endpoint = '';
     switch(dataType) {
@@ -268,6 +314,7 @@ export class FormComponent {
 
   onCancel(): void {
     console.log("Cancel Form");
+    this.router.navigate(['/' + this.dataType.toLowerCase() ]);
   }
 
   ngOnDestroy() {
@@ -277,14 +324,16 @@ export class FormComponent {
   }
 }
 /*
+
   NEXT STEPS: 
-  1. Create a form for each data type and action combination (owner-add, owner-update, visit-add, visit-update, pet-add, pet-update)
-
-  NOTE:
-  The update will pass the id number in the action string (e.g. Update/1, Update/2, Update/3)
-  This will be used to get the data from the database and populate the form fields
-
-  VALIDATION:
+  1. Validation for Pets and Visits
   Pets cannot be created unless an owner exists
   Visits cannot be created unless a pet exists
+
+  CONSIDERATIONS: 
+  Make a model for error messages or add a conditional statement the add buttons, 
+  if the condition is not met than an ngx-toastr will pop up saying something like "Owners Required before making pet"
+  - Toastr CSS not being applied but the toastr is popping up. Double check where angular.json styles is pointing to
+
+
 */

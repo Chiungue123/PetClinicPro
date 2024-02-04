@@ -5,7 +5,7 @@
     </head>
     <body>
         <div class = "header">
-            <h1>{{ action }} {{ dataType }}</h1>
+            <h1>{{ formTitle }}</h1>
         </div>
         <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
             <div class="field" *ngFor="let controlName of formControls; let i = index;">

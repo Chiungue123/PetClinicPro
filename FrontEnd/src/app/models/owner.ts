@@ -1,14 +1,14 @@
 import { Pet } from "./pet";
 
 export class Owner {
-    ownerID: number;
+    ownerID: Number;
     firstName: string;
     lastName: string;
     email: string;
     phone: string;
     pets: Pet[]; // Array of Pet objects
 
-    constructor(ownerID: number, firstName: string, lastName: string, email: string, phone: string, pets: Pet[]) {
+    constructor(ownerID: Number, firstName: string, lastName: string, email: string, phone: string, pets: Pet[]) {
         this.ownerID = ownerID;
         this.firstName = firstName;
         this.lastName = lastName;

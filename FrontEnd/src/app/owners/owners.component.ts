@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { Owner } from '../models/owner';
 import { CommonModule } from '@angular/common';
@@ -19,10 +19,13 @@ import { Router } from '@angular/router';
 })
 export class OwnersComponent {
 
-  owner!: Owner;
+  //ownerService = inject(OwnerService);
+  
   owners: Owner[] = [];
 
-  constructor(private http: HttpClient, private router: Router, /*private ownerService: OwnerService*/) { }
+  constructor(private http: HttpClient, 
+              private router: Router, 
+              private ownerService: OwnerService) { }
 
   ngOnInit(): void {
     this.getOwners().subscribe(
@@ -33,23 +36,32 @@ export class OwnersComponent {
   }
 
   getOwners(): Observable<Owner[]> {
-    console.log("From Owner Component: Getting Owners");
-    return this.http.get<Owner[]>("http://localhost:9050/owners");
-  }
-
-  /*getOwners() {
+    console.log("From Owner Service: Getting Owners");
     return this.ownerService.getOwners();
-  }*/
+  }
   
   onAdd(): void {
     this.router.navigate(['/form'], { state: { data: "owners", action: 'Add' } });
   }
 
-  onUpdate(id: number): void {
+  onUpdate(id: Number): void {
+    console.log("Update Owner: " + id);
     this.router.navigate(['/form'], { state: { data: "owners", action: 'Update/' + id } });
   }
 
-  onDelete(id: number): void {
+  onDelete(id: Number): void {
     console.log("Delete Owner: " + id);
+    this.ownerService.deleteOwner(id).subscribe(
+      (response: any) => {
+        console.log("Response: ", response);
+        this.ownerService.getOwners().subscribe(
+          (owners: Owner[]) => {
+            console.log("Owners: ", owners);
+            this.owners = owners;
+          });
+      },
+      (error: any) => {
+        console.error("Error: ", error);
+      });
   }
 }
