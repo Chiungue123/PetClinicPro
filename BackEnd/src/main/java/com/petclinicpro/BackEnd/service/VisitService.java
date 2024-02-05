@@ -17,7 +17,7 @@ public class VisitService {
 		return this.visitRepository.findAll();
 	}
 	
-	public Visit getVisitById(int id) {
+	public Visit getVisitById(Integer id) {
 		return this.visitRepository.findById(id).get();
 	}
 
@@ -25,7 +25,7 @@ public class VisitService {
 		return this.visitRepository.save(visit);
 	}
 
-	public Visit updateVisit(int id, Visit visit) {
+	public Visit updateVisit(Integer id, Visit visit) {
 		this.visitRepository.findById(id).ifPresent(u -> {
 			u.setDateOfVisit(visit.getDateOfVisit());
 			u.setReasonOfVisit(visit.getReasonOfVisit());
@@ -37,7 +37,7 @@ public class VisitService {
 		return this.visitRepository.findById(id).get();
 	}
 	
-	public void deleteVisitById(int id) {
+	public void deleteVisitById(Integer id) {
 		this.visitRepository.deleteById(id);
 	}
 

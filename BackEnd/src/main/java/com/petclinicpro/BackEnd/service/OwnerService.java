@@ -22,7 +22,7 @@ public class OwnerService {
 		return this.ownerRepository.findAll();
 	}
 	
-	public Owner getOwnerById(int id) {
+	public Owner getOwnerById(Integer id) {
 		logger.info("OWNER SERVICE: Getting Owner by ID: " + id);
 		return this.ownerRepository.findById(id).get();
 	}
@@ -32,7 +32,7 @@ public class OwnerService {
 		return this.ownerRepository.save(owner);
 	}
 
-	public Owner updateOwner(int id, Owner owner) {
+	public Owner updateOwner(Integer id, Owner owner) {
 		logger.info("OWNER SERVICE: Updating Owner: " + owner.toString());
 		
 		this.ownerRepository.findById(id)
@@ -47,7 +47,7 @@ public class OwnerService {
 		return this.ownerRepository.findById(id).get();
 	}
 
-	public void deleteOwner(int id) {
+	public void deleteOwner(Integer id) {
 		logger.info("OWNER SERVICE: Deleting Owner by ID: " + id);
 		this.ownerRepository.deleteById(id);
 	}

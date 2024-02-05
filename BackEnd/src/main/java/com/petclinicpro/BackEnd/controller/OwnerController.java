@@ -37,9 +37,9 @@ public class OwnerController {
 	}
 	
 	@GetMapping("/{id}")
-	public Owner getOwnerById(@PathVariable("id") int id) {
+	public Owner getOwnerById(@PathVariable("id") Integer id) {
 		logger.info("OWNER CONTROLLER: Getting Owner by ID: " + id);
-		return this.getOwnerById(id);
+		return this.ownerService.getOwnerById(id);
 	}
 	
 	@PostMapping("/add")
@@ -48,14 +48,14 @@ public class OwnerController {
 		return this.ownerService.addOwner(owner);
 	}
 		
-	@PutMapping("/{id}")
-	public Owner updateOwner(@PathVariable("id") int id, @RequestBody Owner owner) {
+	@PutMapping("/update/{id}")
+	public Owner updateOwner(@PathVariable("id") Integer id, @RequestBody Owner owner) {
 		logger.info("OWNER CONTROLLER: Updating Owner: " + owner.toString());
 		return this.ownerService.updateOwner(id, owner);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteOwner(@PathVariable("id") int id) {
+	public void deleteOwner(@PathVariable("id") Integer id) {
 		logger.info("OWNER CONTROLLER: Deleting Owner by ID: " + id);
 		this.ownerService.deleteOwner(id);
 	}

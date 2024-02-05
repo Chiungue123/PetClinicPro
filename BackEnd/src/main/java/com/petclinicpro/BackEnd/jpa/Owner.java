@@ -1,14 +1,10 @@
 package com.petclinicpro.BackEnd.jpa;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,7 +14,7 @@ public class Owner {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "ownerID")
-	private Integer id;
+	private Integer ownerID;
 	
 	@Column(name = "firstName")
 	private String firstName;
@@ -38,21 +34,21 @@ public class Owner {
 	public Owner() {
 	}
 	
-	public Owner(Integer id, String firstName, String lastName, String email, String phone) {
+	public Owner(Integer ownerID, String firstName, String lastName, String email, String phone) {
 		super();
-		this.id = id;
+		this.ownerID = ownerID;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.phone = phone;
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getOwnerID() {
+		return ownerID;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setOwnerID(Integer id) {
+		this.ownerID = id;
 	}
 
 	public String getFirstName() {
@@ -89,6 +85,6 @@ public class Owner {
 
 	@Override
 	public String toString() {
-		return "Owner [id=" + id + ", name=" + firstName + lastName + ", email=" + email + ", phone=" + phone + "]";
+		return "Owner [id=" + ownerID + ", name=" + firstName + lastName + ", email=" + email + ", phone=" + phone + "]";
 	}
 }

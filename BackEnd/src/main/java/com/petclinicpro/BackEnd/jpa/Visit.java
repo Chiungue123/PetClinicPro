@@ -2,6 +2,8 @@ package com.petclinicpro.BackEnd.jpa;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 //import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
@@ -25,7 +27,7 @@ public class Visit {
 	@Column(name = "petID")
 	private Integer petID;
 	
-	//@DateTimeFormat(pattern="yyyy-MM-dd")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     @Column(name = "dateOfVisit")
 	private Date dateOfVisit;
