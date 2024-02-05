@@ -13,7 +13,8 @@ import { CommonModule } from '@angular/common';
 import { Observable, Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { SharedModule } from '../shared/shared.module';
-import { FormService } from '../services/form.service';
+import { PetService } from '../services/pet.service';
+import { OwnerService } from '../services/owner.service';
 
 @Component({
   selector: 'app-form',
@@ -39,6 +40,10 @@ export class FormComponent {
   visit!: Visit;
   pet!: Pet;
 
+  owners!: Owner[];
+  pets!: Pet[];
+  visits!: Visit[];
+
   formControls: string[] = [];
 
   formTitle!: string;
@@ -46,7 +51,8 @@ export class FormComponent {
   dataType!: string;
 
   constructor(private router: Router,
-              private formService: FormService, 
+              private petService: PetService,
+              private ownerService: OwnerService,
               private fb: FormBuilder, 
               private http: HttpClient,
               private toastr: ToastrService,
@@ -67,7 +73,7 @@ export class FormComponent {
         this.inputTypes = new InputTypes().ownerTypes;
 
       } else if (this.dataType === "visits") {
-        this.label = ["Date of Visit", "Reason of Visit", "Treatment Notes", "VisitID", "PetID"];
+        this.label = ["Date of Visit", "Reason of Visit", "Treatment Notes", "PetID"];
         this.inputTypes = new InputTypes().visitTypes;
 
       } else if (this.dataType === "pets") {
@@ -78,27 +84,45 @@ export class FormComponent {
   }
 
   ngOnInit(): FormGroup { 
-    if (this.action.includes("Update")) {
+    this.fetchOwners();
+    this.fetchPets();
+    return this.initializeForm();
+  }
 
+  fetchPets() {
+    this.petService.getPets().subscribe({
+      next: (pets: Pet[]) => this.pets = pets,
+      error: (err: any) => console.error(err) 
+    });
+  }
+
+  fetchOwners() {
+    this.ownerService.getOwners().subscribe({
+      next: (owners: Owner[]) => this.owners = owners,
+      error: (err: any) => console.error(err)
+    });
+  }
+
+  initializeForm(): FormGroup {
+    if (this.action.includes("Update")) {
       let id = parseInt(this.action.split("/")[1]);
       this.dynamicForm = this.updateForm(this.dataType, id);
 
     } else if (this.action.includes("Add")) {
       this.dynamicForm = this.createForm(this.dataType);
     }
+
     for (let value in this.dynamicForm.controls) {
       this.formControls.push(value.valueOf());
     }
 
-    //console.log("Dynamic Form Controls: ", this.dynamicForm.controls)
-    console.log("Form Controls: ", this.formControls);
     return this.dynamicForm;
   }
 
-  createForm(dataType: string): any {
+  createForm(dataType: string): FormGroup {
     if (dataType === "owners") {
       this.formTitle = "Add Owner"
-      return this.dynamicForm = this.fb.group({
+      this.dynamicForm = this.fb.group({
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         email: ['', Validators.required],
@@ -107,17 +131,17 @@ export class FormComponent {
 
     } else if (dataType === "visits") {
       this.formTitle = "Add Visit"
-      return this.dynamicForm = this.fb.group({
+      this.dynamicForm = this.fb.group({
         //visitID: ['', Validators.required],
-        petID: ['', Validators.required],
         dateOfVisit: ['', Validators.required],
         reasonOfVisit: ['', Validators.required],
-        treatmentNotes: ['', Validators.required]
+        treatmentNotes: ['', Validators.required],
+        petID: ['', Validators.required]
       });
 
     } else if (dataType === "pets") {
       this.formTitle = "Add Pet"
-      return this.dynamicForm = this.fb.group({
+      this.dynamicForm = this.fb.group({
         //petID: ['', Validators.required],
         name: ['', Validators.required],
         breed: ['', Validators.required],
@@ -127,6 +151,8 @@ export class FormComponent {
     } else {  
       console.log("Invalid Data Type");
     }
+
+    return this.dynamicForm;
   }
 
   updateForm(dataType: string, id: Number): FormGroup {
@@ -162,10 +188,10 @@ export class FormComponent {
       this.formTitle = "Update Visit"
       this.dynamicForm = this.fb.group({
         //visitID: ['', Validators.required],
-        petID: ['', Validators.required],
         dateOfVisit: ['', Validators.required],
         reasonOfVisit: ['', Validators.required],
-        treatmentNotes: ['', Validators.required]
+        treatmentNotes: ['', Validators.required],
+        petID: ['', Validators.required]
       });
 
       this.getVisit(id).subscribe(
@@ -202,7 +228,7 @@ export class FormComponent {
             name: pet.name,
             breed: pet.breed,
             age: pet.age,
-            ownerID: this.pet.ownerID
+            ownerID: pet.ownerID
           });
         },(error: any) => {
           console.error("Error: ", error);
@@ -227,10 +253,12 @@ export class FormComponent {
   onSubmit(): void {
     if (this.action.includes("Add")) {
       this.add(this.dataType);
+      this.router.navigate(['/' + this.dataType.toLowerCase() ]);
 
     } else if (this.action.includes("Update")) {
       let id = parseInt(this.action.split("/")[1]);
       this.update(this.dataType, id);
+      this.router.navigate(['/' + this.dataType.toLowerCase() ]);
 
     } else { 
       console.log("Invalid Action");
@@ -323,17 +351,3 @@ export class FormComponent {
     }
   }
 }
-/*
-
-  NEXT STEPS: 
-  1. Validation for Pets and Visits
-  Pets cannot be created unless an owner exists
-  Visits cannot be created unless a pet exists
-
-  CONSIDERATIONS: 
-  Make a model for error messages or add a conditional statement the add buttons, 
-  if the condition is not met than an ngx-toastr will pop up saying something like "Owners Required before making pet"
-  - Toastr CSS not being applied but the toastr is popping up. Double check where angular.json styles is pointing to
-
-
-*/

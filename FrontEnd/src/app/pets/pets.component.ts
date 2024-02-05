@@ -31,28 +31,30 @@ export class PetsComponent {
               private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.getPets().subscribe(
-      (pets: Pet[]) => {
-        console.log("Pets: ", pets);
-        this.pets = pets;
-      });
-
-    this.ownerService.getOwners().subscribe(
-      (owners: Owner[]) => {
-        this.isAddEnabled = owners.length > 0;
-        console.log("Is Add Enabled: ", this.isAddEnabled)
-      }
-    );
+    this.fetchPets();
+    this.fetchOwners();
+  }
+  
+  fetchPets() {
+    this.petService.getPets().subscribe({
+      next: (pets: Pet[]) => {
+        this.pets = pets
+        console.log("Pets: ", pets)
+      },
+      error: (err: any) => console.error(err) 
+    });
   }
 
-  getPets() {
-    console.log("Getting Pets");
-    return this.petService.getPets();
+  fetchOwners() {
+    this.ownerService.getOwners().subscribe({
+      next: (owners: Owner[]) => this.isAddEnabled = owners.length > 0,
+      error: (err: any) => console.error(err)
+    });
   }
 
   onAdd(): void {
     if (!this.isAddEnabled) {
-      this.toastr.error('At least one owner must exist before adding a pet.', 'Validation Error');
+      this.toastr.error('Add an Owner to make a Pet.', 'Validation Error');
       return;
     }
     this.router.navigate(['/form'], { state: { data: "pets", action: 'Add' } });
@@ -62,21 +64,15 @@ export class PetsComponent {
     console.log("Update Pet: " + id);
     this.router.navigate(['/form'], { state: { data: "pets", action: 'Update/' + id } });
   }
-
+  
   onDelete(id: Number): void {
     console.log("Delete Pet: " + id);
-    this.petService.deletePet(id).subscribe(
-      (response: any) => {
+    this.petService.deletePet(id).subscribe({
+      next: (response: any) => {
         console.log("Response: ", response);
-        this.petService.getPets().subscribe(
-          (pets: Pet[]) => {
-            console.log("Pets: ", pets);
-            this.pets = pets;
-          });
+        this.fetchPets();
       },
-      (error: any) => {
-        console.log("Error: ", error);
-      }
-    )
+      error: (error: any) => console.log("Error: ", error) 
+    })
   }
 }

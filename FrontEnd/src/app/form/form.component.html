@@ -8,14 +8,36 @@
             <h1>{{ formTitle }}</h1>
         </div>
         <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
-            <div class="field" *ngFor="let controlName of formControls; let i = index;">
-                <br><br>
-                <label for="{{controlName}}"> {{ label[i] }} </label>
-                <input [type]="inputTypes[controlName]" [id]="controlName" [formControlName]="controlName" />
+            <div *ngFor="let controlName of formControls; let i = index" class="field">
+                <!-- Conditionally display a dropdown for ownerID when dataType is 'pets' -->
+                <ng-container *ngIf="dataType === 'pets' && controlName === 'ownerID'; else petDropdown">
+                    <br><br>
+                    <label for="{{controlName}}">Owner</label>
+                    <select [id]="controlName" [formControlName]="controlName">
+                        <option *ngFor="let owner of owners" [value]="owner.ownerID">{{ owner.firstName }} {{ owner.lastName }}</option>
+                    </select>
+                </ng-container>
+
+                <!-- Conditionally display a dropdown for petID when dataType is 'visits' -->
+                <ng-template #petDropdown>
+                    <ng-container *ngIf="dataType === 'visits' && controlName === 'petID'; else otherFields">
+                        <br><br>
+                        <label for="{{controlName}}">Pet</label>
+                        <select [id]="controlName" [formControlName]="controlName">
+                            <option *ngFor="let pet of pets" [value]="pet.petID">{{ pet.name }}</option>
+                        </select>
+                    </ng-container>
+                </ng-template>
+
+                <ng-template #otherFields>
+                    <br><br>
+                    <label for="{{controlName}}">{{ label[i] }}</label>
+                    <input [type]="inputTypes[controlName]" [id]="controlName" [formControlName]="controlName" />
+                </ng-template>
             </div>
             <br><br><br>
             <div class="buttons">
-                <button class="add" type="submit"> {{ action === 'Add' ? 'Add' : 'Update' }} </button>
+                <button class="add" type="submit">{{ action === 'Add' ? 'Add' : 'Update' }}</button>
                 <button class="cancel" type="button" (click)="onCancel()">Cancel</button>
             </div>
         </form>

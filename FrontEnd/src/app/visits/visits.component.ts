@@ -24,6 +24,7 @@ import { Pet } from '../models/pet';
 export class VisitsComponent {
 
   visits: Visit[] = [];
+  pets: Pet[] = [];
   isAddEnabled: boolean = false;
 
   constructor(private visitService: VisitService, 
@@ -34,61 +35,43 @@ export class VisitsComponent {
               private petService: PetService) { }
 
   ngOnInit(): void {
-    this.getVisits().subscribe(
-      (visits: Visit[]) => {
-        console.log("Visits: ", visits);
-        this.visits = visits;
-      });
-    this.isAddEnabled = this.validateAddOwners();
+    this.fetchPets();
+    this.fetchVisits();
   }
 
-  getVisits(){
-    console.log("Getting Visits");
-    return this.visitService.getVisits();
+  fetchPets() {
+    this.petService.getPets().subscribe({
+      next: (pets: Pet[]) => this.isAddEnabled = pets.length > 0,
+      error: (err: any) => console.error(err) 
+    });
+  }
+
+  fetchVisits(){
+    this.visitService.getVisits().subscribe({
+      next: (visits: Visit[]) => {
+        this.visits = visits
+        console.log("Visits: ", visits)
+      },
+      error: (err: any) => console.error(err)
+    });
   }
 
   onDelete(id: Number): void {
-    console.log("Delete Visit: " + id);
+    this.visitService.deleteVisit(id).subscribe({
+      next: (response: any) => this.fetchVisits(),
+      error: (Error: any) => console.error(Error)
+    });
   }
 
   onAdd(): void {
     if (!this.isAddEnabled) {
-      this.toastr.error('At least one owner must exist before adding a pet.', 'Validation Error');
+      this.toastr.error('Make a Pet to make a Visit.', 'Validation Error');
       return;
     }
-
     this.router.navigate(['/form'], { state: { data: "visits", action: 'Add' } });
-    //this.router.navigate(['/owners/add']);
   }
 
   onUpdate(id: Number): void {
-    console.log("Update Visit: " + id);
     this.router.navigate(['/form'], { state: { data: "visits", action: 'Update/' + id } });
-  }
-
-  validateAddOwners(): boolean {
-
-    let ownersExist: boolean = false;
-    let petsExist: boolean = false;
-  
-    this.ownerService.getOwners().subscribe(
-      (owners: Owner[]) => {
-        ownersExist = owners.length > 0;
-        console.log("Owners Exist: ", ownersExist);
-      }
-    );
-
-    this.petService.getPets().subscribe(
-      (pets: Pet[]) => {
-        petsExist = pets.length > 0;
-        console.log("Pets Exist: ", petsExist);
-      }
-    );
-
-    if (petsExist && ownersExist) {
-      return true;
-    }
-
-    return false;
   }
 }

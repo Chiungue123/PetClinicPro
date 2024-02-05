@@ -28,16 +28,17 @@ export class OwnersComponent {
               private ownerService: OwnerService) { }
 
   ngOnInit(): void {
-    this.getOwners().subscribe(
-      (owners: Owner[]) => {
-        console.log("Owners: ", owners);
-        this.owners = owners;
-      });
+    this.fetchOwners();
   }
 
-  getOwners(): Observable<Owner[]> {
-    console.log("From Owner Service: Getting Owners");
-    return this.ownerService.getOwners();
+  fetchOwners() {
+    this.ownerService.getOwners().subscribe ({
+    next: (owners: Owner[]) => {
+      this.owners = owners,
+      console.log("Owners: ", owners)
+    },
+    error: (err: any) => console.error(err)
+    });
   }
   
   onAdd(): void {
@@ -49,19 +50,15 @@ export class OwnersComponent {
     this.router.navigate(['/form'], { state: { data: "owners", action: 'Update/' + id } });
   }
 
+
   onDelete(id: Number): void {
-    console.log("Delete Owner: " + id);
-    this.ownerService.deleteOwner(id).subscribe(
-      (response: any) => {
+    console.log("Delete Pet: " + id);
+    this.ownerService.deleteOwner(id).subscribe({
+      next: (response: any) => {
         console.log("Response: ", response);
-        this.ownerService.getOwners().subscribe(
-          (owners: Owner[]) => {
-            console.log("Owners: ", owners);
-            this.owners = owners;
-          });
+        this.fetchOwners();
       },
-      (error: any) => {
-        console.error("Error: ", error);
-      });
+      error: (error: any) => console.log("Error: ", error) 
+    })
   }
 }
