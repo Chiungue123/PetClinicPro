@@ -1,6 +1,6 @@
-INSERT INTO Owners (name, email, phone) VALUES ('John Doe', 'john.doe@example.com', '555-1234');
-INSERT INTO Owners (name, email, phone) VALUES ('Jane Smith', 'jane.smith@example.com', '555-5678');
-INSERT INTO Owners (name, email, phone) VALUES ('Emily Johnson', 'emily.j@example.com', '555-9012');
+INSERT INTO Owners (firstName, lastName, email, phone) VALUES ('John', 'Doe', 'john.doe@example.com', '555-1234');
+INSERT INTO Owners (firstName, lastName, email, phone) VALUES ('Jane', 'Smith', 'jane.smith@example.com', '555-5678');
+INSERT INTO Owners (firstName, lastName, email, phone) VALUES ('Emily', 'Johnson', 'emily.j@example.com', '555-9012');
 
 INSERT INTO Pets (name, breed, age, ownerID) VALUES ('Buddy', 'Golden Retriever', 3, 1);
 INSERT INTO Pets (name, breed, age, ownerID) VALUES ('Max', 'Beagle', 5, 2);

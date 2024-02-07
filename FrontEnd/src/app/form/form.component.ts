@@ -10,11 +10,12 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { SharedModule } from '../shared/shared.module';
 import { PetService } from '../services/pet.service';
 import { OwnerService } from '../services/owner.service';
+import { VisitService } from '../services/visit.service';
 
 @Component({
   selector: 'app-form',
@@ -53,6 +54,7 @@ export class FormComponent {
   constructor(private router: Router,
               private petService: PetService,
               private ownerService: OwnerService,
+              private visitService: VisitService,
               private fb: FormBuilder, 
               private http: HttpClient,
               private toastr: ToastrService,
@@ -169,7 +171,7 @@ export class FormComponent {
         phone: ['', Validators.required]
       });
       
-      this.getOwner(id).subscribe(
+      this.ownerService.getOwner(id).subscribe(
         (owner: Owner) => {
           console.log("Owner: ", owner)
 
@@ -194,7 +196,7 @@ export class FormComponent {
         petID: ['', Validators.required]
       });
 
-      this.getVisit(id).subscribe(
+      this.visitService.getVisit(id).subscribe(
         (visit: Visit) => {
           console.log("Visit: ", visit)
           this.visit = visit;
@@ -220,7 +222,7 @@ export class FormComponent {
         ownerID: ['', Validators.required]
       });
 
-      this.getPet(id).subscribe(
+      this.petService.getPet(id).subscribe(
         (pet: Pet) => {
           console.log("Pet: ", pet);
           this.dynamicForm.patchValue({
@@ -236,18 +238,6 @@ export class FormComponent {
       } 
 
       return this.dynamicForm;
-  }
-
-  getPet(id: Number): Observable<Pet> {
-    return this.http.get<Pet>("http://localhost:9050/pets/" + id);
-  }
-  
-  getVisit(id: Number): Observable<Visit> {
-    return this.http.get<Visit>("http://localhost:9050/visits/" + id);
-  }
-
-  getOwner(id: Number): Observable<Owner> {
-    return this.http.get<Owner>("http://localhost:9050/owners/" + id);
   }
 
   onSubmit(): void {

@@ -1,0 +1,35 @@
+services:
+  db-container:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root1
+      MYSQL_DATABASE: pet_clinic_db
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: always
+  
+  spring-container:
+    build: ./BackEnd
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db-container/pet_clinic_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root1   
+    depends_on:
+      - db-container
+    ports:
+      - "9050:9050"
+    restart: always
+  
+  angular-container:
+    build: ./FrontEnd
+    depends_on:
+    - spring-container
+    ports:
+    - "4200:4200"
+    restart: always
+
+volumes:
+  db-data:
+

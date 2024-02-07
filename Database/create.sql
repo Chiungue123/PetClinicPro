@@ -2,7 +2,8 @@ create database pet_clinic_db;
 
 CREATE TABLE Owners (
     ownerID INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    firstName VARCHAR(100) NOT NULL,
+    lastName VARCHAR(100) NOT NULL,
     email VARCHAR(100),
     phone VARCHAR(20)
 );
