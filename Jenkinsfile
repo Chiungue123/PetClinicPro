@@ -6,6 +6,7 @@ pipeline {
             steps {
                 // Checkout the source code from the Git repository
                 git 'https://github.com/Chiungue123/PetClinicPro.git'
+		sh 'docker -v'
             }
         }
 
