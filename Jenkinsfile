@@ -24,11 +24,11 @@ pipeline {
             steps {
                 script {
                     // Assuming Docker and Docker Compose are configured in Jenkins
-                    // sh 'docker-compose up --build -d'
+                    sh 'docker-compose up --build -d'
 		    // Use a Docker image with docker-compose installed to run your command, using the same version as in the local machine
-                    sh """
-                    docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v \$(pwd):/workspace -w /workspace docker/compose:2.23.3 up --build -d
-                    """
+                    //sh """
+                    //docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v \$(pwd):/workspace -w /workspace docker/compose:2.23.3 up --build -d
+                    //"""
                 }
             }
         }
