@@ -13,8 +13,10 @@ pipeline {
             steps {
                 script {
                     // Assuming Maven is configured in Jenkins
-                    sh './mvnw -f BackEnd/pom.xml clean package'
-                }
+                   dir('BackEnd'){
+		       sh './mvnw clean package'
+                   }
+		}
             }
         }
 
