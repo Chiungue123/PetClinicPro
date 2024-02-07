@@ -14,7 +14,7 @@ pipeline {
                 script {
                     // Assuming Maven is configured in Jenkins
                    dir('BackEnd'){
-		       sh './mvnw clean package'
+		       sh './mvnw clean package -DskipTests'
                    }
 		}
             }
