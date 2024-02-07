@@ -57,9 +57,5 @@ public class VisitController {
 		logger.info("VISIT CONTROLLER: Deleting Visit by ID: " + id);
 		this.visitService.deleteVisitById(id);
 	}
-	
-	/*
-	 * Test comment added to test the web hook for Jenkins CI/CD
-	 */
 
 }

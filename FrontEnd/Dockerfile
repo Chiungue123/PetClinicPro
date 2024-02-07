@@ -32,7 +32,3 @@ EXPOSE 80
 
 # Start Nginx and keep it running
 CMD ["nginx", "-g", "daemon off;"]
-
-#
-# Test comment added to test the web hook for Jenkins CI/CD
-#
