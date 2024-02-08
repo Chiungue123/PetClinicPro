@@ -9,7 +9,7 @@ pipeline {
             }
         }
 
-	stage('Checking Docker') {
+	/*stage('Checking Docker') {
             steps {
 		sh '''
 		docker info
@@ -17,7 +17,7 @@ pipeline {
 		docker-compose version
 		'''
             }
-        }
+        }*/
 
         stage('Build Spring Boot Application') {
             steps {
@@ -30,18 +30,18 @@ pipeline {
             }
         }
 
-        stage('Build and Deploy Containers') {
+        /*stage('Build and Deploy Containers') {
             steps {
                 script {
                     // Assuming Docker and Docker Compose are configured in Jenkins
-                    sh 'docker-compose up --build -d'
+                    //sh 'docker-compose up --build -d'
 		    // Use a Docker image with docker-compose installed to run your command, using the same version as in the local machine
                     //sh """
                     //docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v \$(pwd):/workspace -w /workspace docker/compose:2.23.3 up --build -d
                     //"""
                 }
             }
-        }
+        }*/
 
 	// Stage to Connect to EC2 Instance (commented out for local testing)
         /*stage('Connect to EC2 Instance') {
