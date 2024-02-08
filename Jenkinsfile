@@ -9,6 +9,16 @@ pipeline {
             }
         }
 
+	stage('Checking Docker') {
+            steps {
+		sh '''
+		docker info
+		docker version
+		docker-compose version
+		'''
+            }
+        }
+
         stage('Build Spring Boot Application') {
             steps {
                 script {
