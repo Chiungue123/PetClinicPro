@@ -13,8 +13,11 @@ RUN npm install
 # Copy the rest of the project files
 COPY . .
 
+# Build the project for Development
+# RUN npm run build
+
 # Build the project for production
-RUN npm run build
+RUN npm run build -- --configuration=production
 
 # Step 2: Use an Nginx image to serve the project
 FROM nginx:alpine
