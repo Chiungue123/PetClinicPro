@@ -20,7 +20,8 @@ import com.petclinicpro.BackEnd.service.PetService;
 
 @RestController
 @RequestMapping("/pets")
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://ec2-35-92-147-200.us-west-2.compute.amazonaws.com:4200")
 public class PetController {
 
 	@Autowired
