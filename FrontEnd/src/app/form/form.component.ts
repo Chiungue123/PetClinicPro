@@ -4,6 +4,7 @@ import { Visit } from '../models/visit';
 import { Pet } from '../models/pet';
 
 import { API_CONSTANTS } from '../shared/api-constants';
+import { environment } from '../../environments/environment.prod';
 import { InputTypes } from '../shared/input-types';
 
 import { Router } from '@angular/router';
@@ -30,6 +31,8 @@ import { VisitService } from '../services/visit.service';
   styleUrl: './form.component.css'
 })
 export class FormComponent {
+
+  private apiUrl = environment.apiUrl;
 
   dynamicForm!: FormGroup;
   sub!: Subscription;
@@ -260,13 +263,13 @@ export class FormComponent {
     let endpoint = '';
     switch(dataType) {
         case 'owners':
-            endpoint = API_CONSTANTS.endpoints.owners;
+            endpoint = environment.endpoints.owners;
             break;
         case 'pets':
-            endpoint = API_CONSTANTS.endpoints.pets;
+            endpoint = environment.endpoints.pets;
             break;
         case 'visits':
-            endpoint = API_CONSTANTS.endpoints.visits;
+            endpoint = environment.endpoints.visits;
             break;
         default:
             console.error('Invalid data type');
@@ -274,7 +277,7 @@ export class FormComponent {
     }
 
     // Construct the full URL using the base URL and the determined endpoint
-    const url = API_CONSTANTS.baseUrl + endpoint + '/add';
+    const url = environment.apiUrl + endpoint + '/add';
 
     console.log("URL: ", url, this.dynamicForm.value);
 
@@ -298,20 +301,20 @@ export class FormComponent {
     let endpoint = '';
     switch(dataType) {
         case 'owners':
-            endpoint = API_CONSTANTS.endpoints.owners;
+            endpoint = environment.endpoints.owners;
             break;
         case 'pets':
-            endpoint = API_CONSTANTS.endpoints.pets;
+            endpoint = environment.endpoints.pets;
             break;
         case 'visits':
-            endpoint = API_CONSTANTS.endpoints.visits;
+            endpoint = environment.endpoints.visits;
             break;
         default:
             console.error('Invalid data type');
             return;
     }
 
-    const url = API_CONSTANTS.baseUrl + endpoint + '/update/' + id;
+    const url = environment.apiUrl + endpoint + '/update/' + id;
 
     console.log("URL: ", url, this.dynamicForm.value);
 
