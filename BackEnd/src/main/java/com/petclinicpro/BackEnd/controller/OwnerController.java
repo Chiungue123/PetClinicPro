@@ -21,7 +21,8 @@ import com.petclinicpro.BackEnd.service.OwnerService;
 @RestController
 @RequestMapping("/owners")
 //@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "http://ec2-35-92-147-200.us-west-2.compute.amazonaws.com:4200")
+//@CrossOrigin(origins = "http://ec2-35-92-147-200.us-west-2.compute.amazonaws.com:4200")
+@CrossOrigin(origins = "*")
 public class OwnerController {
 
 	@Autowired 
