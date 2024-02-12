@@ -277,7 +277,7 @@ export class FormComponent {
     }
 
     // Construct the full URL using the base URL and the determined endpoint
-    const url = environment.apiUrl + endpoint + '/add';
+    const url = environment.apiUrl + "/" + endpoint + '/add';
 
     console.log("API URL: ", environment.apiUrl);
     console.log("Endpoint: ", endpoint);
@@ -317,7 +317,7 @@ export class FormComponent {
             return;
     }
 
-    const url = environment.apiUrl + endpoint + '/update/' + id;
+    const url = environment.apiUrl + "/" + endpoint + '/update/' + id;
     
     console.log("API URL: ", environment.apiUrl);
     console.log("Endpoint: ", endpoint);
