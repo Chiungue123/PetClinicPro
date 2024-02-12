@@ -14,22 +14,22 @@ export class OwnerService {
   constructor(private http: HttpClient) { }
 
   addOwner(owner: Owner) {
-    return this.http.post(`${this.apiUrl}/owners`, owner);
+    return this.http.post(`${this.apiUrl}owners`, owner);
   }
 
   getOwners(): Observable<Owner[]> {
-    return this.http.get<Owner[]>(`${this.apiUrl}/owners`);
+    return this.http.get<Owner[]>(`${this.apiUrl}owners`);
   }
 
   getOwner(id: Number): Observable<Owner> {
-    return this.http.get<Owner>(`${this.apiUrl}/owners/${id}`);
+    return this.http.get<Owner>(`${this.apiUrl}owners/${id}`);
   }
 
   deleteOwner(id: Number) {
-    return this.http.delete(`${this.apiUrl}/owners/${id}`);
+    return this.http.delete(`${this.apiUrl}owners/${id}`);
   }
 
   updateOwner(owner: Owner) {
-    return this.http.put(`${this.apiUrl}/owners/update/${owner.ownerID}`, owner);
+    return this.http.put(`${this.apiUrl}owners/update/${owner.ownerID}`, owner);
   }
 }

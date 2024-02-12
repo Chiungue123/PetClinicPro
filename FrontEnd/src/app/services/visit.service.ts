@@ -14,14 +14,14 @@ export class VisitService {
   constructor(private http: HttpClient) { }
 
   getVisit(id: Number): Observable<Visit> {
-    return this.http.get<Visit>(`${this.apiUrl}/visits/${id}`);
+    return this.http.get<Visit>(`${this.apiUrl}visits/${id}`);
   }
 
   getVisits(): Observable<Visit[]> {
-    return this.http.get<Visit[]>(`${this.apiUrl}/visits`);
+    return this.http.get<Visit[]>(`${this.apiUrl}visits`);
   }
 
   deleteVisit(id: Number) {
-    return this.http.delete(`${this.apiUrl}/visits/${id}`);
+    return this.http.delete(`${this.apiUrl}visits/${id}`);
   }
 }
