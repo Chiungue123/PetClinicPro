@@ -279,6 +279,9 @@ export class FormComponent {
     // Construct the full URL using the base URL and the determined endpoint
     const url = environment.apiUrl + endpoint + '/add';
 
+    console.log("API URL: ", environment.apiUrl);
+    console.log("Endpoint: ", endpoint);
+    console.log("=====================================")
     console.log("URL: ", url, this.dynamicForm.value);
 
     // Make the HTTP POST request
@@ -315,7 +318,9 @@ export class FormComponent {
     }
 
     const url = environment.apiUrl + endpoint + '/update/' + id;
-
+    
+    console.log("API URL: ", environment.apiUrl);
+    console.log("Endpoint: ", endpoint);
     console.log("URL: ", url, this.dynamicForm.value);
 
     // Make the HTTP PUT request
