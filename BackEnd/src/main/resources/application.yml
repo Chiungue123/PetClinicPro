@@ -9,10 +9,7 @@ server:
 #    [org.hibernate.type: TRACE]
     
 logging:
-  level:
-    hibernate:
-      SQL: DEBUG
-      type: TRACE
+  level: DEBUG
 
 # Database Settings
 spring:
